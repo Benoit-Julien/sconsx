@@ -96,7 +96,11 @@ class BoostBase:
                     self._default['libpath'] = conf.lib_dir
 
                 except ImportError as e:
-                    defdir = detect_posix_project_installpath('include/boost')
+                    if isinstance(platform, Win32):
+                        defdir = detect_win_project_installpath('boost')
+                    else:
+                        defdir = detect_posix_project_installpath('include/boost')
+                        
                     self._default['include'] = join(defdir,'include')
                     self._default['libpath']     = join(defdir,'lib')
                     detectedsuffix = get_default_boost_libs_suffix(self._default['libpath']) 

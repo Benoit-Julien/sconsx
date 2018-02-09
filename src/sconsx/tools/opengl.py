@@ -54,7 +54,7 @@ class OpenGL:
            self._default['mgw_libpath'] = pj(mgw_dir, 'lib')
 
            self._default['include'] = self._default['msvc_include']
-           self._default['libpath'] = self._default['msvc_lib']
+           self._default['libpath'] = self._default['msvc_libpath']
            self._default['libs'] = ['opengl32','glu32']
 
        elif isinstance(platform, Posix):

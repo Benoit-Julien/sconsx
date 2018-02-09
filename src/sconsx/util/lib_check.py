@@ -37,3 +37,22 @@ def detect_posix_project_installpath(filepattern, potentialdirs = []):
             return potentialdir
     return '/usr'
 
+def detect_win_project_installpath(filepattern, potentialdirs = []):
+    """ Detect the installation of include of lib in the system.
+        Potential dirs can be added to test on the system.
+        By default, 'C:' are tested.
+        If nothing is found, it return the default value /usr
+        Exemple of use will be:
+        detect_win_project_installpath('GL')
+    """
+    from os.path import join, exists
+    from .env_check import is_conda,conda_library_prefix
+
+    mpotentialdirs = potentialdirs+['C:']
+    if is_conda():
+        mpotentialdirs.insert(0,conda_library_prefix())
+    for potentialdir in mpotentialdirs:
+        if exists(join(potentialdir,filepattern)) :
+            return potentialdir
+    return 'C:'
+
